@@ -1,10 +1,6 @@
 package se.sbab.awsdocsservice;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.AwsCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersRequest;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersResponse;
@@ -112,15 +108,10 @@ public class UploadUserDoc {
     public static void main(String[] args) throws Exception {
         // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
 
-        AwsBasicCredentials longTermCredentials =
-                AwsBasicCredentials.create("AKIA2DEYRP5QJW24X2H3", "hboUpJ60/9CNK+jZlgBG9s1Oxfq3D+KLSeC12eCQ");
-        StaticCredentialsProvider staticCredentialProvider =
-                StaticCredentialsProvider.create(longTermCredentials);
 
         // Use the region specific to your WorkDocs site.
         WorkDocsClient amazonWorkDocsClient =
-                WorkDocsClient.builder().credentialsProvider(staticCredentialProvider)
-                        .region(Region.EU_WEST_1).build();
+                WorkDocsClient.create();
 
         // Set to the name of the doc
         String docName = "test.txt";
